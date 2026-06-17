@@ -581,6 +581,26 @@ body {
  * Responsive Styling & Breakpoints
  * ------------------------------------------------------------- */
 @media (max-width: 768px) {
+    html, body {
+        overflow: auto;
+        height: auto;
+    }
+    
+    .main-content {
+        height: auto;
+        min-height: auto;
+    }
+    
+    .hero-section {
+        height: auto;
+        min-height: auto;
+        overflow: visible;
+    }
+    
+    .hero-container {
+        min-height: auto;
+    }
+    
     .app-header {
         padding: 20px 0;
     }
