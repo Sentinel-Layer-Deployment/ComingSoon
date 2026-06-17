@@ -155,27 +155,59 @@
 
 
     <!-- Interactive JS for waitlist confirmation -->
-    <script>
-        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const emailInput = document.getElementById('email-input');
-            const submitBtn = document.getElementById('subscribe-button');
-            const responseDiv = document.getElementById('form-response');
-            
-            if (emailInput.value.trim() === '') return;
+  <script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyyrV9WjzKi5l0lrPHwspgHt-BTA2ac4CgYPSVBAOY01akMaIrzTAXVUA_n2L7Mq_n6/exec";
 
-            submitBtn.disabled = true;
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<span class="spinner"></span> Reserving...';
-            
-            // Premium fast local submission simulation
-            setTimeout(() => {
-                responseDiv.classList.add('visible');
-                emailInput.value = '';
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-            }, 1200);
+document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const emailInput = document.getElementById('email-input');
+    const submitBtn = document.getElementById('subscribe-button');
+    const responseDiv = document.getElementById('form-response');
+
+    const email = emailInput.value.trim();
+
+    if (!email) return;
+
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span class="spinner"></span> Reserving...';
+
+    try {
+        const response = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
         });
-    </script>
+
+        const data = await response.json();
+
+        if (data.success) {
+            responseDiv.querySelector('.response-text').textContent =
+                'Secure access slot reserved. Welcoming you soon!';
+            responseDiv.classList.add('visible');
+            emailInput.value = '';
+        } else {
+            responseDiv.querySelector('.response-text').textContent =
+                data.message || 'Email already registered.';
+            responseDiv.classList.add('visible');
+        }
+
+    } catch (error) {
+        console.error(error);
+
+        responseDiv.querySelector('.response-text').textContent =
+            'Something went wrong. Please try again.';
+        responseDiv.classList.add('visible');
+    }
+
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+});
+</script>
 </body>
 </html>
