@@ -152,9 +152,7 @@
         </section>
     </main>
 
-
-
- <script>
+    <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyyrV9WjzKi5l0lrPHwspgHt-BTA2ac4CgYPSVBAOY01akMaIrzTAXVUA_n2L7Mq_n6/exec";
 
 document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
@@ -182,11 +180,11 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
     submitBtn.innerHTML = '<span class="spinner"></span> Reserving...';
 
     try {
+        // FIX: Removed 'Content-Type: application/json' header to avoid CORS preflight.
+        // Google Apps Script does not handle preflight OPTIONS requests properly.
+        // Omitting the header sends a simple request that bypasses the preflight check.
         const response = await fetch(SCRIPT_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: JSON.stringify({
                 email: email,
                 source: 'Website'
@@ -224,6 +222,6 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalText;
 });
-</script>
+    </script>
 </body>
 </html>
