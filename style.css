@@ -723,25 +723,14 @@ main,
 }
 
 @media (max-height: 750px) and (min-width: 769px) {
-    html, body {
-        overflow: auto;
+    .main-content {
+        padding: 20px 0;
     }
-
-    .hero-section {
-        overflow: visible;
-    }
-
     .waitlist-support-text {
         margin-bottom: 24px;
     }
-
     .founder-contacts {
-        padding-top: 24px;
+        padding-top: 20px;
         margin-top: 0;
-    }
-
-    .pill-form {
-        max-width: 480px;
-        margin: 0 auto;
     }
 }
