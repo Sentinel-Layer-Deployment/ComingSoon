@@ -725,26 +725,10 @@ main,
 @media (max-height: 750px) and (min-width: 769px) {
     html, body {
         overflow: auto;
-        height: auto;
-    }
-
-    .main-content {
-        padding: 20px 0;
-        height: auto;
     }
 
     .hero-section {
-        height: auto;
-        min-height: auto;
         overflow: visible;
-    }
-
-    .hero-container {
-        min-height: auto;
-    }
-
-    .app-header {
-        position: relative;
     }
 
     .waitlist-support-text {
@@ -752,7 +736,12 @@ main,
     }
 
     .founder-contacts {
-        padding-top: 20px;
+        padding-top: 24px;
         margin-top: 0;
+    }
+
+    .pill-form {
+        max-width: 480px;
+        margin: 0 auto;
     }
 }
