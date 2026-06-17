@@ -154,8 +154,7 @@
 
 
 
-    <!-- Interactive JS for waitlist confirmation -->
-  <script>
+ <script>
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyyrV9WjzKi5l0lrPHwspgHt-BTA2ac4CgYPSVBAOY01akMaIrzTAXVUA_n2L7Mq_n6/exec";
 
 document.getElementById('waitlist-form').addEventListener('submit', async function(e) {
@@ -165,11 +164,20 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
     const submitBtn = document.getElementById('subscribe-button');
     const responseDiv = document.getElementById('form-response');
 
-    const email = emailInput.value.trim();
+    const email = emailInput.value.trim().toLowerCase();
 
-    if (!email) return;
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        responseDiv.querySelector('.response-text').textContent =
+            'Please enter a valid email address.';
+        responseDiv.classList.add('visible');
+        return;
+    }
 
     submitBtn.disabled = true;
+
     const originalText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<span class="spinner"></span> Reserving...';
 
@@ -180,7 +188,8 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: email
+                email: email,
+                source: 'Website'
             })
         });
 
@@ -190,10 +199,17 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
             responseDiv.querySelector('.response-text').textContent =
                 'Secure access slot reserved. Welcoming you soon!';
             responseDiv.classList.add('visible');
+
             emailInput.value = '';
         } else {
-            responseDiv.querySelector('.response-text').textContent =
-                data.message || 'Email already registered.';
+            if (data.message === 'Email already registered') {
+                responseDiv.querySelector('.response-text').textContent =
+                    'This email is already on the waitlist.';
+            } else {
+                responseDiv.querySelector('.response-text').textContent =
+                    data.message || 'Something went wrong.';
+            }
+
             responseDiv.classList.add('visible');
         }
 
@@ -201,7 +217,7 @@ document.getElementById('waitlist-form').addEventListener('submit', async functi
         console.error(error);
 
         responseDiv.querySelector('.response-text').textContent =
-            'Something went wrong. Please try again.';
+            'Unable to connect. Please try again.';
         responseDiv.classList.add('visible');
     }
 
