@@ -723,12 +723,34 @@ main,
 }
 
 @media (max-height: 750px) and (min-width: 769px) {
+    html, body {
+        overflow: auto;
+        height: auto;
+    }
+
     .main-content {
         padding: 20px 0;
+        height: auto;
     }
+
+    .hero-section {
+        height: auto;
+        min-height: auto;
+        overflow: visible;
+    }
+
+    .hero-container {
+        min-height: auto;
+    }
+
+    .app-header {
+        position: relative;
+    }
+
     .waitlist-support-text {
         margin-bottom: 24px;
     }
+
     .founder-contacts {
         padding-top: 20px;
         margin-top: 0;
