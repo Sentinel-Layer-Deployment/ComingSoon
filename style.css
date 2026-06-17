@@ -599,6 +599,7 @@ body {
     
     .hero-container {
         min-height: auto;
+        padding-bottom: 48px;
     }
     
     .app-header {
