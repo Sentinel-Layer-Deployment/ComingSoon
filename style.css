@@ -670,50 +670,45 @@ body {
 
 /* =========================
    FULLSCREEN LANDING PAGE
+   (desktop & laptop only)
 ========================= */
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
+@media (min-width: 769px) {
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-    display: none;
-}
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        display: none;
+    }
 
-/* =========================
-   PAGE LAYOUT
-========================= */
+    .main-content {
+        height: 100vh;
+    }
 
-body {
-    min-height: 100vh;
-}
+    .hero-section {
+        min-height: 100vh;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
 
-.main-content {
-    height: 100vh;
-}
-
-.hero-section {
-    min-height: 100vh;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.hero-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    .hero-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
 
 /* =========================
